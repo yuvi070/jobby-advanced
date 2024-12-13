@@ -1,0 +1,47 @@
+.jobs-main {
+  height: 100vh;
+  background-color: black;
+}
+.jobs-bottom-main {
+  width: 100%;
+  height: 85%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.jobs-bottom-body {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+}
+.jobs-bottom-div1 {
+  background-color: goldenrod;
+  width: 25%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.jobs-bottom-div2 {
+  background-color: yellowgreen;
+  width: 75%;
+  padding: 10px;
+}
+
+.jobs-profile-div {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  height: 30%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.jobs-horizontal-line {
+  background-color: black;
+  height: 2px;
+  border: 0px;
+  width: 80%;
+}
+.jobs-div1-type-of-employment {
+  height: 30%;
+  width: 80%;
+}

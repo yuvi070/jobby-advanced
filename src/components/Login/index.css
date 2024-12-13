@@ -53,3 +53,16 @@
   color: #cbd5e1;
   font-size: 13px;
 }
+
+@media (max-width: 768px) {
+  .login-body {
+    width: 90%;
+    padding: 10px;
+  }
+  .login-website-logo {
+    width: 150px;
+  }
+  .login-website-logo-mb {
+    width: 60px;
+  }
+}
