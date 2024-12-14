@@ -34,6 +34,25 @@
   width: 80%;
   background-size: cover;
   background-repeat: no-repeat;
+  padding: 10px;
+}
+.loader-container-profile {
+  height: 30%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.failure-profile {
+  height: 30%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 .jobs-horizontal-line {
   background-color: black;
@@ -44,4 +63,7 @@
 .jobs-div1-type-of-employment {
   height: 30%;
   width: 80%;
+}
+.profile-avatar {
+  width: 50px;
 }
