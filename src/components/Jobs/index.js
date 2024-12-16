@@ -2,7 +2,10 @@ import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
+import {IoSearchOutline} from 'react-icons/io5'
+
 import Header from '../Header'
+import JobCard from '../JobCard'
 import './index.css'
 
 const apiConstants = {
@@ -31,9 +34,31 @@ const employmentTypesList = [
   },
 ]
 
+const salaryRangesList = [
+  {
+    salaryRangeId: '1000000',
+    label: '10 LPA and above',
+  },
+  {
+    salaryRangeId: '2000000',
+    label: '20 LPA and above',
+  },
+  {
+    salaryRangeId: '3000000',
+    label: '30 LPA and above',
+  },
+  {
+    salaryRangeId: '4000000',
+    label: '40 LPA and above',
+  },
+]
+
 const Jobs = () => {
   const jwtToken = Cookies.get('jwt_token')
   const [type, setType] = useState([])
+  const [salary, setSalary] = useState('')
+  const [searchInput, setSearchInput] = useState('')
+  const [searchButton, setSearchButton] = useState(null)
   const [retryProfileState, setRetryProfile] = useState('')
   const [profileResponse, setProfileResponse] = useState({
     apiStatus: apiConstants.initial,
@@ -131,13 +156,25 @@ const Jobs = () => {
     }
   }
 
+  const salaryRange = event => {
+    setSalary(event.target.value)
+  }
+
+  const onChangeSearchInput = event => {
+    setSearchInput(event.target.value)
+  }
+
+  const onClickSearchButton = () => {
+    setSearchButton('')
+  }
+
   useEffect(() => {
     const jobs = async () => {
       setJobsResponse({
         apiStatus: apiConstants.progress,
         data: null,
       })
-      const apiUrl = `https://apis.ccbp.in/jobs?${type.join()}&minimum_package=&search=`
+      const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${type.join()}&minimum_package=${salary}&search=${searchInput}`
       const options = {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -158,9 +195,29 @@ const Jobs = () => {
       }
     }
     jobs()
-  }, [retryJobs, type])
+  }, [retryJobs, type, salary, searchButton])
   // need to code the rendering views of jobs
-
+  const renderJobViews = () => {
+    switch (jobsResponse.apiStatus) {
+      case 'PROGRESS':
+        return <h1>Progress</h1>
+      case 'SUCCESS':
+        return (
+          <>
+            <ul>
+              {jobsResponse.data.map(each => (
+                <JobCard key={each.id} each={each} />
+              ))}
+            </ul>
+          </>
+        )
+      case 'FAILURE':
+        return <h1>Failure</h1>
+      default:
+        return null
+    }
+  }
+  console.log(jobsResponse.apiStatus, jobsResponse.data)
   return (
     <div className="jobs-main">
       <Header />
@@ -184,9 +241,44 @@ const Jobs = () => {
                 </>
               ))}
             </div>
+            <hr className="jobs-horizontal-line" />
+            <div className="jobs-div1-salary-range">
+              <p>Salary Range</p>
+              {salaryRangesList.map(each => (
+                <>
+                  <input
+                    type="radio"
+                    name="salary"
+                    value={each.salaryRangeId}
+                    id={each.salaryRangeId}
+                    onChange={salaryRange}
+                  />
+                  <label htmlFor={each.salaryRangeId}>{each.label}</label>
+                  <br />
+                </>
+              ))}
+            </div>
           </div>
           <div className="jobs-bottom-div2">
-            <h1>2</h1>
+            <>
+              <div className="jobs-bottom-div2-input-container">
+                <input
+                  type="text"
+                  className="job-search-input"
+                  placeholder="search"
+                  onChange={onChangeSearchInput}
+                  value={searchInput}
+                />
+                <button
+                  type="button"
+                  onClick={onClickSearchButton}
+                  className="job-search-button"
+                >
+                  <IoSearchOutline />
+                </button>
+              </div>
+              {renderJobViews()}
+            </>
           </div>
         </div>
       </div>
