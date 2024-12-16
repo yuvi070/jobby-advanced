@@ -204,7 +204,7 @@ const Jobs = () => {
       case 'SUCCESS':
         return (
           <>
-            <ul>
+            <ul className="job-card-ul-container">
               {jobsResponse.data.map(each => (
                 <JobCard key={each.id} each={each} />
               ))}
