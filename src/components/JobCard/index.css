@@ -18,6 +18,7 @@
 .job-card-title {
   font-size: 19px;
   color: white;
+  font-weight: bold;
 }
 .job-card-logo-div1 {
   margin-left: 15px;
@@ -56,4 +57,7 @@
 .job-card-rating {
   color: white;
   margin-left: 5px;
+}
+.job-card-horizontal-line {
+  color: white;
 }

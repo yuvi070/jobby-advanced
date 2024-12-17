@@ -1,0 +1,50 @@
+.job-details-main {
+  background-color: black;
+  min-height: 100vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.mini-1 {
+  width: 85%;
+  margin: auto;
+}
+.mini-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.job-card-link {
+  text-decoration: none;
+  font-size: 19px;
+  color: #6366f1;
+}
+.skills-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0px;
+}
+.skill-card {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 19px;
+}
+.skill-image {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+.life-at-company-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.life-at-company-para {
+  width: 70%;
+  color: white;
+}

@@ -164,7 +164,8 @@ const Jobs = () => {
     setSearchInput(event.target.value)
   }
 
-  const onClickSearchButton = () => {
+  const onClickSearchButton = event => {
+    event.preventDefault()
     setSearchButton('')
   }
 
@@ -187,6 +188,7 @@ const Jobs = () => {
           apiStatus: apiConstants.success,
           data: data.jobs,
         })
+        setSearchInput('')
       } else {
         setJobsResponse({
           apiStatus: apiConstants.failure,
@@ -196,28 +198,67 @@ const Jobs = () => {
     }
     jobs()
   }, [retryJobs, type, salary, searchButton])
+  const retryJobsPage = () => {
+    setRetryJobs('a')
+  }
   // need to code the rendering views of jobs
+  let isValid = null
+  if (jobsResponse.apiStatus === 'SUCCESS') {
+    isValid = jobsResponse.data.length === 0
+  }
   const renderJobViews = () => {
     switch (jobsResponse.apiStatus) {
       case 'PROGRESS':
-        return <h1>Progress</h1>
+        return (
+          <div className="loader-container-profile" data-testid="loader">
+            <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
+          </div>
+        )
       case 'SUCCESS':
         return (
           <>
-            <ul className="job-card-ul-container">
-              {jobsResponse.data.map(each => (
-                <JobCard key={each.id} each={each} />
-              ))}
-            </ul>
+            {isValid ? (
+              <div className="jobs-failure-container">
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+                  alt="no jobs"
+                  className="jobs-failure-image"
+                />
+                <h1>No Jobs Found</h1>
+                <p>We could not find any jobs. Try other filters.</p>
+              </div>
+            ) : (
+              <ul className="job-card-ul-container">
+                {jobsResponse.data.map(each => (
+                  <JobCard key={each.id} each={each} />
+                ))}
+              </ul>
+            )}
           </>
         )
       case 'FAILURE':
-        return <h1>Failure</h1>
+        return (
+          <div className="jobs-failure-container">
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+              alt="failure view"
+              className="jobs-failure-image"
+            />
+            <h1>Oops! Something Went Wrong</h1>
+            <p>We cannot seem to find the page you are looking for.</p>
+            <button
+              onClick={retryJobsPage}
+              type="button"
+              className="profile-failure-button"
+            >
+              Retry
+            </button>
+          </div>
+        )
       default:
         return null
     }
   }
-  console.log(jobsResponse.apiStatus, jobsResponse.data)
   return (
     <div className="jobs-main">
       <Header />
@@ -261,7 +302,10 @@ const Jobs = () => {
           </div>
           <div className="jobs-bottom-div2">
             <>
-              <div className="jobs-bottom-div2-input-container">
+              <form
+                onSubmit={onClickSearchButton}
+                className="jobs-bottom-div2-input-container"
+              >
                 <input
                   type="text"
                   className="job-search-input"
@@ -269,14 +313,10 @@ const Jobs = () => {
                   onChange={onChangeSearchInput}
                   value={searchInput}
                 />
-                <button
-                  type="button"
-                  onClick={onClickSearchButton}
-                  className="job-search-button"
-                >
+                <button type="submit" className="job-search-button">
                   <IoSearchOutline />
                 </button>
-              </div>
+              </form>
               {renderJobViews()}
             </>
           </div>

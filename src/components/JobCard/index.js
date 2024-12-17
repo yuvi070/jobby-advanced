@@ -38,7 +38,7 @@ const JobCard = props => {
           </div>
           <p className="job-card-title">{each.package_per_annum}</p>
         </div>
-        <hr />
+        <hr className="job-card-horizontal-line" />
         <div className="description-container">
           <p className="job-card-title">Description</p>
           <p>{each.job_description}</p>

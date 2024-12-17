@@ -107,3 +107,14 @@
   list-style: none;
   padding-left: 0px;
 }
+.jobs-failure-container {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+.jobs-failure-image {
+  width: 400px;
+}
