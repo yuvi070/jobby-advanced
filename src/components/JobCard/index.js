@@ -11,7 +11,11 @@ const JobCard = props => {
     <Link to={`/jobs/${each.id}`} className="job-card-link">
       <li className="job-card-main">
         <div className="logo-container">
-          <img src={each.company_logo_url} alt="" className="job-card-logo" />
+          <img
+            src={each.company_logo_url}
+            alt="company logo"
+            className="job-card-logo"
+          />
           <div className="job-card-logo-div1">
             <p className="job-card-title">{each.title}</p>
             <div className="job-card-logo-div2">

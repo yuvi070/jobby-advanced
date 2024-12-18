@@ -122,7 +122,7 @@ const Jobs = () => {
           <div className="jobs-profile-div">
             <img
               src={profileResponse.data.profile_image_url}
-              alt=""
+              alt="profile"
               className="profile-avatar"
             />
             <p>{profileResponse.data.name}</p>
@@ -313,7 +313,11 @@ const Jobs = () => {
                   onChange={onChangeSearchInput}
                   value={searchInput}
                 />
-                <button type="submit" className="job-search-button">
+                <button
+                  type="submit"
+                  data-testid="searchButton"
+                  className="job-search-button"
+                >
                   <IoSearchOutline />
                 </button>
               </form>
